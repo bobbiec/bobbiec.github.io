@@ -49,10 +49,37 @@
     <div id="app" class="container">
       <semaphore-decoder></semaphore-decoder>
       <hr />
-      <p>
-        <a href="https://en.wikipedia.org/wiki/Flag_semaphore">Semaphore flags</a>
-        are used for
-      </p>
+      <h3>What's this?</h3>
+      <div class="row">
+        <div class="one-half column">
+          <p>
+            <a href="https://en.wikipedia.org/wiki/Flag_semaphore">Flag semaphore</a>
+            is a technique used for visual communication, where the positions of two flags represent a single letter.
+          </p>
+          <p>
+            I often see these at puzzle hunts disguised as clock hands, tree branches, dance moves, etc., and I'm very
+            slow at reading the lookup chart (see image at right). I thought the ideal way to decode semaphore would be
+            to draw out the actual angles. So I wrote my own visual semaphore decoder, implemented using Vue.
+          </p>
+          <p>
+            It's very rare to solve just one semaphore - usually you need to solve many to form a word or a phrase. So I
+            added the ability to push each letter to a text box, using . (period) for quick entry. It's a regular text
+            input, so you can type normally if you want to change anything.
+          </p>
+          <p>
+            There is also a quick link to anagram the resulting letters on
+            <a href="https://nutrimatic.org/usage.html">Nutrimatic</a>, which is a very powerful pattern-matching tool.
+            If you're familiar with Nutrimatic syntax, you can use it here as well - for example, if you're not quite
+            sure what a semaphore position is, you can enter capital A for "any letter", and hope that Nutrimatic will
+            be able to fill it in for you.
+          </p>
+          <p>
+            Note that this decoder does not decode numerals, which are typically represented with the (0, 45) signal
+            followed by another signal.
+          </p>
+        </div>
+        <img src="semaphore-chart.png" height="400" class="one-half column" />
+      </div>
     </div>
 
     <script>
@@ -132,8 +159,8 @@
         data: function () {
           return {
             numbers: [0, 45, 90, 135, 180, 225, 270, 315],
-            firstFlag: 45,
-            secondFlag: 90,
+            firstFlag: 180,
+            secondFlag: 225,
             text: "",
           }
         },
