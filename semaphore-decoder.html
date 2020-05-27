@@ -1,0 +1,235 @@
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <semaphore></semaphore>
+    </div>
+
+    <script>
+      Vue.component("flag", {
+        props: ["position", "selected"],
+        template: `
+          <div
+            v-bind:style="style"
+            v-on:click="$emit('flagClicked', position)"
+            v-on:mouseover="hover = true"
+            v-on:mouseleave="hover = false"
+          >
+            {{ position }}
+          </div>`,
+        data: function () {
+          return {
+            hover: false,
+          };
+        },
+        computed: {
+          style() {
+            let useColor = this.hover || this.selected;
+            let opacity =
+              this.hover && this.selected ? 0.8 : this.hover ? 0.5 : 1;
+            return {
+              height: "1.5em",
+              width: "25vh",
+              left: "32px",
+              top: "50%",
+              backgroundColor: useColor
+                ? `rgba(255, 255, 128, ${opacity})`
+                : undefined,
+              border: `1px solid black`,
+              position: "absolute",
+              display: "inline-block",
+              transformOrigin: "right bottom",
+              transform: `rotate(${90 + this.position}deg`,
+              cursor: "pointer",
+            };
+          },
+        },
+      });
+
+      Vue.component("semaphore", {
+        template: `
+          <div v-on:keyup.space="console.log('space')">
+            <div>
+              <h1>
+                Identified as: {{ match }}
+              </h1>
+              <input
+                v-model="text"
+                v-bind:style="'width:100%'"
+                placeholder="Hit Enter to add the current letter here!"
+              >
+              <div
+                v-on:click="text = ''"
+                v-bind:style="' display: inline-block; \
+                                margin: 8px;           \
+                                padding: 8px;          \
+                                border: solid;         \
+                                border-radius: 8px;    \
+                                cursor: pointer;       \
+                                '"
+              >
+              <!-- Not a button because it would take focus and clear on Enter if clicked -->
+                Clear textbox
+              </div>
+              <div
+                v-bind:style="' display: inline-block; \
+                                margin: 8px;           \
+                                padding: 8px;          \
+                                '"
+              >
+                <a
+                  v-bind:href="'https://nutrimatic.org/?q=%3C' + text.toLowerCase() + '%3E&go=Go'"
+                  v-bind:target="'_blank'"
+                >
+                  Anagram on Nutrimatic
+                </a>
+              </div>
+                <small>
+                  Currently selected angles: {{ firstFlag }}, {{ secondFlag }}
+                </small>
+            </div>
+            <div>
+              <flag
+                v-for="number in numbers"
+                v-bind:position="number"
+                v-bind:selected="(number === firstFlag || number === secondFlag)"
+                v-bind:key="number"
+                v-on:flagClicked="flagClicked"
+              ></flag>
+            </div>
+          </div>`,
+        data: function () {
+          return {
+            numbers: [0, 45, 90, 135, 180, 225, 270, 315],
+            firstFlag: 45,
+            secondFlag: 90,
+            text: "",
+          };
+        },
+        computed: {
+          match() {
+            switch (`${this.firstFlag}-${this.secondFlag}`) {
+              case "0-90":
+                return "J";
+              case "0-135":
+                return "V";
+              case "0-180":
+                return "D";
+              case "0-225":
+                return "K";
+              case "0-270":
+                return "P";
+              case "0-315":
+                return "T";
+
+              case "45-90":
+                return "W";
+              case "45-135":
+                return "X";
+              case "45-180":
+                return "E";
+              case "45-225":
+                return "L";
+              case "45-270":
+                return "Q";
+              case "45-315":
+                return "U";
+
+              case "90-135":
+                return "Z";
+              case "90-180":
+                return "F";
+              case "90-225":
+                return "M";
+              case "90-270":
+                return "R";
+              case "90-315":
+                return "Y";
+
+              case "135-180":
+                return "G";
+              case "135-225":
+                return "N";
+              case "135-270":
+                return "S";
+
+              case "180-225":
+                return "A";
+              case "180-270":
+                return "B";
+              case "180-315":
+                return "C";
+
+              case "225-270":
+                return "H";
+              case "225-315":
+                return "I";
+
+              case "270-315":
+                return "O";
+
+              case "0-45":
+              case "135-315":
+                return "(none)";
+
+              default:
+                return "select two angles!";
+            }
+          },
+        },
+        methods: {
+          flagClicked(position) {
+            if (this.secondFlag || this.firstFlag === null) {
+              if (position === this.firstFlag) {
+                this.firstFlag = this.secondFlag;
+                this.secondFlag = null;
+              } else if (position === this.secondFlag) {
+                this.secondFlag = null;
+              } else {
+                this.firstFlag = position;
+                this.secondFlag = null;
+              }
+            } else {
+              if (position === this.firstFlag) {
+                this.firstFlag = null;
+              } else if (position < this.firstFlag) {
+                this.secondFlag = this.firstFlag;
+                this.firstFlag = position;
+              } else {
+                this.secondFlag = position;
+              }
+            }
+          },
+          keyPressed(event) {
+            if (event.keyCode !== 13) {
+              return;
+            }
+
+            if (!(this.firstFlag && this.secondFlag)) {
+              return;
+            }
+
+            let match = this.match;
+            if (match.length === 1) {
+              this.text += match;
+            }
+          },
+        },
+        created: function () {
+          document.addEventListener("keyup", this.keyPressed);
+        },
+        destroyed: function () {
+          document.removeEventListener("keyup", this.keyPressed);
+        },
+      });
+
+      var app = new Vue({
+        el: "#app",
+      });
+    </script>
+  </body>
+</html>
