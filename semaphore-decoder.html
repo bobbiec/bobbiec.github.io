@@ -117,8 +117,8 @@
 
       Vue.component("semaphore-decoder", {
         template: `
-        <div v-bind:style="'max-width:450px;'">
-          <div v-bind:class="'row flag-container'">
+        <div style="max-width:450px">
+          <div class="row flag-container">
             <flag
               v-for="number in numbers"
               v-bind:position="number"
@@ -127,36 +127,36 @@
               v-on:flagClicked="flagClicked"
             ></flag>
           </div>
-          <div v-bind:class="'info-container'">
+          <div class="info-container">
             <h1>Decoded: <strong> {{ match }} </strong></h1>
-            <div v-bind:class="'u-full-width'">
+            <div class="u-full-width">
               {{ match === "?"      ? "Select two flags!" :
                  match === "(none)" ? "These two flags mean nothing."
                                     : "Click Add or hit . to add to the textbox." }}
             </div>
-            <div v-bind:class="'row'" v-bind:style="'display: flex'">
+            <div class="row" style="display: flex">
               <input
                 v-model="text"
-                v-bind:class="'nine columns'"
+                class="nine columns"
                 type="text"
                 placeholder="Your word here, eventually"
               />
-              <button v-on:click="addLetter" v-bind:class="'three columns'">
+              <button v-on:click="addLetter" class="three columns">
                 Add
               </button>
             </div>
-            <button v-on:click="text = ''" v-bind:class="'u-full-width'">
+            <button v-on:click="text = ''" class="u-full-width">
               Clear textbox
             </button>
             <a
               v-bind:href="'https://nutrimatic.org/?q=%3C' + text + '%3E&go=Go'"
-              v-bind:target="'_blank'"
-              v-bind:class="'button button-primary u-full-width'"
-              v-bind:style="'color:black'"
+              target="_blank"
+              class="button button-primary u-full-width"
+              style="color:#555"
             >
               Anagram on Nutrimatic
             </a>
-            <small v-bind:class="'u-full-width'">
+            <small class="u-full-width">
               Currently selected angles: {{ firstFlag }}, {{ secondFlag }}
             </small>
           </div>
