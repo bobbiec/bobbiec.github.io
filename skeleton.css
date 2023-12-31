@@ -7,6 +7,12 @@
 * 12/29/2014
 */
 
+/*
+* Edited by Bobbie Chen
+* 12/20/2023
+* 1. Change nested <ol> styles
+*/
+
 
 /* Table of contents
 ––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -299,7 +305,13 @@ ul ol,
 ol ol,
 ol ul {
   margin: 1.5rem 0 1.5rem 3rem;
-  font-size: 90%; }
+}
+ol ol {
+  list-style: lower-alpha;
+}
+ol ol ol {
+  list-style: circle;
+}
 li {
   margin-bottom: 1rem; }
 
