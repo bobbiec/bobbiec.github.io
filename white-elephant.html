@@ -13,7 +13,7 @@
     />
     <meta property="og:image" content="https://bobbiec.github.io/white-elephant-preview.png" />
 
-    <link rel="icon" href="elephant-favicon.png" />
+    <link rel="icon" href="white-elephant-favicon.png" />
 
     <link href="normalize.css" rel="stylesheet" />
     <link href="skeleton.css" rel="stylesheet" />
@@ -488,6 +488,8 @@
             of games ended up in the 99th percentile (top 1%) of possible outcomes!
           </p>
 
+          <small><i>Note: these graphs are hard to read on mobile, sorry - rotating your screen might help.</i></small>
+
           <div id="plotly-graph-rank" class="plotly-graph-div" style="height: 600px; width: 100%"></div>
           <div class="counter">
             <button id="rank-sub" onclick="update('rank', -1)">−</button>
@@ -514,8 +516,8 @@
           <div id="plotly-graph-pareto" class="plotly-graph-div" style="height: 500px; width: 100%"></div>
 
           <p>
-            Here's the data for top-k, in the form of a box-and-whiskers plot. The mean is plotted as the black dotted
-            line:
+            Top-k is really N different distributions, so it is shown here as a box-and-whiskers plot. The mean of each
+            distribution is plotted as the black dotted line:
           </p>
 
           <div id="plotly-graph-top-k" class="plotly-graph-div" style="height: 600px; width: 100%"></div>
@@ -539,8 +541,9 @@
                 top-1. So what's the expected value of unique top preferences?
               </p>
               <p>
-                If preferences are random, each person's top gift should be random (...I think). This maps to the
-                birthday problem: in a room with N people, what are the odds that at least two people share a
+                Since preferences are random, each person should have an equal chance of choosing any particular gift as
+                their favorite (...I think). This maps to the birthday problem: in a room with N people, what are the
+                odds that at least two people share a
                 <s>birthday</s> favorite gift? Wikipedia helpfully gives a closed-form solution for
                 <a href="https://en.wikipedia.org/wiki/Birthday_problem#Number_of_days_with_at_least_one_birthday"
                   >number of days with at least one birthday</a
@@ -649,7 +652,8 @@
             I realized I was missing a critical (and common) rule:
             <b>the first player gets the opportunity to swap at the end of the game!</b>
             This eliminates one common way to get "stuck", and also ensures that anyone stolen-from at the end gets to
-            steal their favorite available gift (since all gifts are now revealed).
+            steal their favorite available gift with full knowledge of the possibilities (since all gifts are now
+            revealed).
           </p>
 
           <p>
@@ -661,8 +665,8 @@
 
           <p>
             Take a look at the comparison: this noticeably shifts the distribution towards the right, regardless of the
-            number of players. In the graph below, the original ruleset is in red, while adding the "last steal" rule is
-            shown in blue.
+            number of players. In the graph below, the original ruleset results are in red, while adding the "last
+            steal" rule is shown in blue.
           </p>
 
           <div id="plotly-graph-rank-laststeal" class="plotly-graph-div" style="height: 600px; width: 100%"></div>
@@ -787,13 +791,15 @@
             </li>
           </ul>
 
+          <p>Even so, it was fun to dissect the current naive simulation.</p>
+
           <h2>Conclusion and next steps</h2>
 
           <p>White Elephant is good! Measurably so!</p>
 
           <p>
-            Over the course of this project, I've spent much more time thinking about White Elephant than I thought I
-            ever would. On the flip side, it's much easier to write the simulation and analyze the results than it is to
+            Over the course of this project, I spent much more time thinking about White Elephant than I thought I ever
+            would. On the flip side, it was much easier to write the simulation and analyze the results than it is to
             reason abstractly about the system based on the rules.
           </p>
 
@@ -825,12 +831,12 @@
             <li>
               Compare the results of other item allocation heuristics: for example, what if all items are revealed
               up-front and players just greedily pick their favorites? White Elephant might be a good approximation
-              compared to brute force (the most expensive possible way to do it), but maybe there are even better ways
-              to give people what they want.
+              compared to brute force (the most expensive possible way to do it), but the top-k graph suggests there
+              might be even better ways to give people what they want.
             </li>
           </ul>
           <p>
-            I think it would also be really fun to visualize and simulate individual games in the browser, like the
+            I also think it would also be really fun to visualize and simulate individual games in the browser, like the
             <a href="https://raft.github.io/#raftscope">Raft visualization</a>. As part of debugging, I had some logging
             that looked like this:
           </p>
