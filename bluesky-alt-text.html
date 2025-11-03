@@ -58,8 +58,13 @@
         const jsonError = document.getElementById("jsonError")
 
         function log(message) {
+          // Check if user is at the bottom before adding new content
+          const isAtBottom = output.scrollHeight - output.scrollTop <= output.clientHeight + 1
           output.value += `${message}\n`
-          output.scrollTop = output.scrollHeight
+          // Only scroll if user was already at the bottom
+          if (isAtBottom) {
+            output.scrollTop = output.scrollHeight
+          }
         }
 
         function systemLog(message) {
@@ -85,7 +90,7 @@
                 const data = JSON.parse(event.data)
                 if (data?.commit?.record?.embed?.images) {
                   data.commit.record.embed.images.map((i) => {
-                    log(`at://${data.did}/${data.commit.rkey}: ${i.alt}`)
+                    log(`at://${data.did}/app.bsky.feed.post/${data.commit.rkey}: ${i.alt}`)
                   })
                 }
               } catch (e) {
