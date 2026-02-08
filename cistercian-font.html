@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cistercian Numeral Font Demo</title>
+    <title>Cistercian Numeral Font</title>
     <meta name="author" content="Bobbie Chen" />
     <meta name="description" content="A font that renders numbers as medieval Cistercian numerals" />
+    <meta property="og:image" content="https://bobbiec.github.io/cistercian-font-preview.png" />
 
     <link href="normalize.css" rel="stylesheet" />
     <link href="skeleton.css" rel="stylesheet" />
@@ -53,16 +54,7 @@
         margin-bottom: 15px;
         overflow: hidden;
       }
-      .output-label {
-        background: #f0f0f0;
-        padding: 8px 12px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        border-bottom: 1px solid #ccc;
-      }
-      .output-cistercian,
-      .output-mono {
+      .output-cistercian {
         padding: 15px;
         white-space: pre-wrap;
         word-break: break-word;
@@ -73,12 +65,6 @@
         font-size: 2.5rem;
         line-height: 1.5;
         background: linear-gradient(135deg, #f8fafc, #e8edf3);
-      }
-      .output-mono {
-        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-        font-size: 1.1rem;
-        line-height: 1.7;
-        color: #6b7280;
       }
       /* Font Face Declaration */
       @font-face {
@@ -97,7 +83,10 @@
       <h1 style="padding-top: 0.5em">Cistercian Numeral Font</h1>
       <p>
         On this page, numbers are automatically rendered as medieval Cistercian numerals using
-        <a href="TODO">a custom font (learn more)</a>.
+        <a
+          href="https://digitalseams.com/blog/making-a-font-with-9999-ligatures-to-display-thirteenth-century-monk-numerals?ref=bobbiec.github.io"
+          >a custom font (learn more)</a
+        >.<br />Try copy-pasting the symbols or Ctrl/Cmd-F the numbers below!
       </p>
 
       <div class="main-content">
@@ -108,11 +97,9 @@
           </div>
         </div>
         <div class="output-section">
-          <div class="output-panel">
-            <div class="output-block">
-              <div class="output-label">Cistercian font output</div>
-              <div class="output-cistercian" id="output-cistercian"></div>
-            </div>
+          <label>Cistercian font output</label>
+          <div class="output-block">
+            <div class="output-cistercian" id="output-cistercian"></div>
           </div>
         </div>
       </div>
@@ -124,7 +111,14 @@
           href="https://christianheilmann.com/2026/01/13/monky-business-creating-a-cistercian-numerals-generator/?ref=bobbiec.github.io"
           target="_blank"
           >Chris Heilmann's generator</a
-        >. See all <a href="/">web demos</a>.
+        >.
+        <br />
+        Learn more about
+        <a
+          href="https://digitalseams.com/blog/making-a-font-with-9999-ligatures-to-display-thirteenth-century-monk-numerals?ref=bobbiec.github.io"
+          >the custom font in the blog post</a
+        >
+        . See all <a href="/">web demos</a>.
       </footer>
     </div>
     <script src="cistercian-font-demo.js"></script>
