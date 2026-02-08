@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cistercian Numeral Font Demo</title>
+    <meta name="author" content="Bobbie Chen" />
+    <meta name="description" content="A font that renders numbers as medieval Cistercian numerals" />
+
+    <link href="normalize.css" rel="stylesheet" />
+    <link href="skeleton.css" rel="stylesheet" />
+
+    <style>
+      .container {
+        max-width: 900px !important;
+      }
+      .main-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      @media (min-width: 750px) {
+        .main-content {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+        .output-section {
+          flex: 1;
+          min-width: 0;
+        }
+        .input-section {
+          flex: 1;
+          min-width: 0;
+        }
+      }
+      textarea {
+        width: 100%;
+        min-height: 300px;
+        padding: 10px;
+        font-family: monospace;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        resize: vertical;
+      }
+      .output-panel {
+        margin: 20px 0;
+      }
+      .output-block {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        overflow: hidden;
+      }
+      .output-label {
+        background: #f0f0f0;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-bottom: 1px solid #ccc;
+      }
+      .output-cistercian,
+      .output-mono {
+        padding: 15px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        min-height: 3rem;
+      }
+      .output-cistercian {
+        font-family: "Cistercian", monospace;
+        font-size: 2.5rem;
+        line-height: 1.5;
+        background: linear-gradient(135deg, #f8fafc, #e8edf3);
+      }
+      .output-mono {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #6b7280;
+      }
+      /* Font Face Declaration */
+      @font-face {
+        font-family: "Cistercian";
+        src:
+          url("Cistercian.woff2") format("woff2"),
+          url("Cistercian.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="padding-top: 0.5em">Cistercian Numeral Font</h1>
+      <p>
+        On this page, numbers are automatically rendered as medieval Cistercian numerals using
+        <a href="TODO">a custom font (learn more)</a>.
+      </p>
+
+      <div class="main-content">
+        <div class="input-section">
+          <div class="textarea-container">
+            <label for="text-input">Type or edit text here (normal font):</label>
+            <textarea id="text-input" spellcheck="false" autocomplete="off"></textarea>
+          </div>
+        </div>
+        <div class="output-section">
+          <div class="output-panel">
+            <div class="output-block">
+              <div class="output-label">Cistercian font output</div>
+              <div class="output-cistercian" id="output-cistercian"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-bottom: 12rem"></div>
+      <footer style="padding-bottom: 1rem; text-align: center">
+        A project by <a href="https://bobbiechen.com?ref=bobbiec.github.io">Bobbie Chen</a>, based on
+        <a
+          href="https://christianheilmann.com/2026/01/13/monky-business-creating-a-cistercian-numerals-generator/?ref=bobbiec.github.io"
+          target="_blank"
+          >Chris Heilmann's generator</a
+        >. See all <a href="/">web demos</a>.
+      </footer>
+    </div>
+    <script src="cistercian-font-demo.js"></script>
+  </body>
+</html>
