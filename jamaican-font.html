@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jamaican Alphabet Font</title>
+    <meta name="author" content="Bobbie Chen" />
+    <meta name="description" content="A font where the letters are based on the Jamaican flag design." />
+
+    <link href="normalize.css" rel="stylesheet" />
+    <link href="skeleton.css" rel="stylesheet" />
+
+    <style>
+      @font-face {
+        font-family: "Jamaican Connected";
+        src:
+          url("JamaicanConnected.woff2") format("woff2"),
+          url("JamaicanConnected.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Jamaican Alphabet";
+        src:
+          url("JamaicanAlphabet.woff2") format("woff2"),
+          url("JamaicanAlphabet.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      .container {
+        max-width: 900px !important;
+      }
+      h1 {
+        padding-top: 0.5em;
+      }
+      .flag {
+        display: block;
+        width: 190px;
+        max-width: 100%;
+        height: auto;
+        margin: 0 0 2.5rem;
+      }
+      .demo-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        margin-bottom: 10px;
+      }
+      .demo-controls label {
+        margin-bottom: 0;
+      }
+      .font-toggle {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+      }
+      .tab-button {
+        margin-bottom: 0;
+      }
+      .tab-button.active {
+        background: #1eaedb;
+        color: white;
+        border-color: #1eaedb;
+      }
+      .textarea-container {
+        margin: 20px 0;
+      }
+      textarea {
+        display: block;
+        width: 100%;
+        resize: vertical;
+      }
+      .font-demo {
+        background-color: #f1f1e6;
+        min-height: 220px;
+        margin-bottom: 2.5rem;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: "Jamaican Alphabet", sans-serif;
+        font-size: clamp(36px, 8vw, 72px);
+        font-weight: 400;
+        font-synthesis: none;
+        letter-spacing: 0;
+        word-spacing: 0;
+        line-height: 0.713;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .connected {
+        font-family: "Jamaican Connected", sans-serif;
+        font-feature-settings:
+          "calt" 1,
+          "kern" 1;
+        font-kerning: normal;
+      }
+      footer {
+        padding: 8rem 0 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Jamaican Alphabet Font</h1>
+      <p>The flag of Jamaica looks like this:</p>
+      <img
+        class="flag"
+        src="jamaica-flag.svg"
+        width="190"
+        height="95"
+        alt="Jamaican flag: a gold X with green triangles above and below and black triangles on each side."
+      />
+      <p>
+        Inspired by <a href="https://www.reddit.com/r/vexillologycirclejerk/s/Bqage66kXN">this Reddit post</a> - if the
+        flag is the letter X, what does the rest of the alphabet look like?
+        <!-- TODO: Replace the blog post placeholder links with the published URL. -->
+        <a href="#todo-blog-post">Read the blog post (TODO)</a>.
+      </p>
+
+      <div class="textarea-container">
+        <div class="demo-controls">
+          <label for="text-input">Try the font (click to edit):</label>
+          <div class="font-toggle" role="group" aria-label="Font variant">
+            <button
+              type="button"
+              class="tab-button active"
+              data-font="main"
+              aria-pressed="true"
+              aria-controls="text-input"
+            >
+              Main Font
+            </button>
+            <button
+              type="button"
+              class="tab-button"
+              data-font="connected"
+              aria-pressed="false"
+              aria-controls="text-input"
+            >
+              Connected Variant
+            </button>
+          </div>
+        </div>
+        <textarea
+          class="font-demo"
+          id="text-input"
+          spellcheck="false"
+          autocomplete="off"
+          aria-describedby="font-note connected-note"
+        >
+The quick brown fox jumps over the lazy dog</textarea
+        >
+      </div>
+
+      <p id="font-note">
+        This text box contains ordinary text that you can select, copy, and search. The colors and shapes are built
+        directly into the font!
+      </p>
+
+      <p id="connected-note">
+        The Connected Variant joins letters together, using contextual font features to match background colors between
+        letters and connecting certain glyphs.
+      </p>
+
+      <footer>
+        A project by <a href="https://bobbiechen.com?ref=bobbiec.github.io">Bobbie Chen</a>, based on
+        <a href="https://www.reddit.com/r/vexillologycirclejerk/s/Bqage66kXN">the Jamaican alphabet</a>
+        by <a href="https://www.reddit.com/user/VelvetOnion/">u/VelvetOnion</a>.
+        <br />
+        For another cursed font, see <a href="cistercian-font.html">Cistercian Font</a>. See all
+        <a href="/">web demos</a>.
+      </footer>
+    </main>
+    <script>
+      const demos = document.querySelectorAll(".font-demo")
+      const fontButtons = document.querySelectorAll("[data-font]")
+      const textInput = document.getElementById("text-input")
+
+      fontButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const connected = button.dataset.font === "connected"
+          textInput.classList.toggle("connected", connected)
+          fontButtons.forEach((option) => {
+            const selected = option === button
+            option.classList.toggle("active", selected)
+            option.setAttribute("aria-pressed", String(selected))
+          })
+          fitDemos()
+          const family = connected ? "Jamaican Connected" : "Jamaican Alphabet"
+          document.fonts.load(`72px "${family}"`).then(fitDemos)
+        })
+      })
+
+      function fitText(demo) {
+        demo.style.height = "auto"
+        demo.style.height = `${demo.scrollHeight + 2}px`
+      }
+
+      function fitDemos() {
+        demos.forEach(fitText)
+      }
+
+      demos.forEach((demo) => demo.addEventListener("input", () => fitText(demo)))
+      fitDemos()
+      document.fonts.ready.then(fitDemos)
+      window.addEventListener("resize", fitDemos)
+    </script>
+  </body>
+</html>
